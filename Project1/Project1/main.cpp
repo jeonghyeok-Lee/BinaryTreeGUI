@@ -467,11 +467,28 @@ void main() {
 		}
 		break;
 		case 'r':
-		{
-			printf("\n 삭제할 값을 입력해 주세요: ");
-			scanf("%d", &nodeData);
-			delete_BST(nodeData);
-		}
+			// 계속해서 r를 누르지 않아도 노드를 삭제할 수 있도록 반복문 설정
+			while (1) {
+				printf("\n삭제할 값을 입력해 주세요. (q를 누르면 종료): ");
+				int delete_result = scanf("%d", &nodeData);
+
+				if (delete_result == 1) {								// 함수의 반환값이 1 즉, 성공적으로 숫자를 입력받았을 경우 노드를 추가
+					delete_BST(nodeData);
+				}
+				else if (delete_result == EOF) {						// 오류 발생 시 프로그램을 종료
+					printf("입력 오류가 발생했습니다.\n");
+					exit(1);
+				}
+				else {													// 숫자가 입력되지 않았을 경우 
+					char next = getchar();								// 사용자 입력 버퍼로부터 하나의 문자를 받아옴
+					if (next == 'q') {									// 그 값이 'q'일 경우 종료
+						break; // 삽입 모드 종료
+					}
+					else {
+						printf("잘못된 입력입니다. 숫자를 입력하거나 'q'를 눌러 종료하세요.\n");
+					}
+				}
+			}
 		break;
 		case 't':
 		{
