@@ -477,4 +477,4 @@ FodyWeavers.xsd
 Project1/.vs/
 
 .Debug/
-Project1/Debug/
+**/Debug/
