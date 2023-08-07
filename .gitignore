@@ -475,3 +475,6 @@ FodyWeavers.xsd
 
 # Ignore Visual Studio cache and options directory
 Project1/.vs/
+
+.Debug/
+Project1/Debug/
