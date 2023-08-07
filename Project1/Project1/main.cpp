@@ -1,11 +1,11 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <stdlib.h>
 #pragma warning(disable:4996)
 
-//int count = 0; // Å¥¿¡ Ãß°¡µÇ´Â °³¼ö
-//int level = 1; // ÇöÁ¦ ·¹º§
+//int count = 0; // íì— ì¶”ê°€ë˜ëŠ” ê°œìˆ˜
+//int level = 1; // í˜„ì œ ë ˆë²¨
 
-// Æ®¸® ¿¬»ê
+// íŠ¸ë¦¬ ì—°ì‚°
 typedef int TElement;
 typedef struct BinTNode {
 	TElement data;
@@ -34,22 +34,22 @@ TNode* search(TNode* n, int key) {
 void search_BST(int key) {
 	TNode* n = search(root, key);
 	if (n != NULL)
-		printf("[Å½»ö ¿¬»ê] : Success [%d] = 0x%x\n", n->data, n);
+		printf("[íƒìƒ‰ ì—°ì‚°] : Success [%d] = 0x%x\n", n->data, n);
 	else
-		printf("[Å½»ö ¿¬»ê] : Fail =  %d!\n", key);
+		printf("[íƒìƒ‰ ì—°ì‚°] : Fail =  %d!\n", key);
 }
 
 int insert(TNode* r, TNode* n) {
 	if (n->data == r->data) return 0;
 	else if (n->data < r->data) {
-		if (r->left == NULL) r->left = n;	// ºñ¾îÀÖ´Ù¸é ÇØ´ç ·çÆ®ÀÇ ¿ŞÂÊ ¸µÅ©ÇÊµå¿¡ Ãß°¡ÇÒ ³ëµå ÁÖ¼Ò°ª Àü´Ş
-		else insert(r->left, n);			// ¸¸¾à ÀÖ´Ù¸é ¼øÈ¯À» ÀÌ¿ëÇÏ¿© ´Ù½Ã Ã£±â
+		if (r->left == NULL) r->left = n;	// ë¹„ì–´ìˆë‹¤ë©´ í•´ë‹¹ ë£¨íŠ¸ì˜ ì™¼ìª½ ë§í¬í•„ë“œì— ì¶”ê°€í•  ë…¸ë“œ ì£¼ì†Œê°’ ì „ë‹¬
+		else insert(r->left, n);			// ë§Œì•½ ìˆë‹¤ë©´ ìˆœí™˜ì„ ì´ìš©í•˜ì—¬ ë‹¤ì‹œ ì°¾ê¸°
 	}
 	else {
-		if (r->right == NULL) r->right = n; // À§¿Í ¹İ´ë·Î ¿À¸¥ÂÊ¿¡ Àü´Ş
+		if (r->right == NULL) r->right = n; // ìœ„ì™€ ë°˜ëŒ€ë¡œ ì˜¤ë¥¸ìª½ì— ì „ë‹¬
 		else insert(r->right, n);
 	}
-	return 1;								// ·çÆ®°¡ ¾Æ´Ï¶ó¸é 1 ¸®ÅÏ
+	return 1;								// ë£¨íŠ¸ê°€ ì•„ë‹ˆë¼ë©´ 1 ë¦¬í„´
 }
 void insert_BST(int key) {
 	TNode* n = create_tree(key, NULL, NULL);
@@ -61,8 +61,8 @@ void insert_BST(int key) {
 
 void delete_tree(TNode* parent, TNode* node) {
 	TNode* child, * succ, * succp;
-	// case1 -> »èÁ¦ÇÒ ³ëµå°¡ ´Ü¸» ³ëµå ÀÏ °æ¿ì
-	if ((node->left == NULL && node->right == NULL)) {		// ´Ü¸» ³ëµåÀÌ¹Ç·Î »èÁ¦ÇÒ ³ëµåÀÇ ¸µÅ©ÇÊµå´Â ¸ğµÎ NULLÀÌ¾î¾ßÇÔ
+	// case1 -> ì‚­ì œí•  ë…¸ë“œê°€ ë‹¨ë§ ë…¸ë“œ ì¼ ê²½ìš°
+	if ((node->left == NULL && node->right == NULL)) {		// ë‹¨ë§ ë…¸ë“œì´ë¯€ë¡œ ì‚­ì œí•  ë…¸ë“œì˜ ë§í¬í•„ë“œëŠ” ëª¨ë‘ NULLì´ì–´ì•¼í•¨
 		if (parent == NULL) root = NULL;					// 
 		else {
 			if (parent->left == node) parent->left = NULL;
@@ -70,7 +70,7 @@ void delete_tree(TNode* parent, TNode* node) {
 		}
 	}
 
-	// case2 -> »èÁ¦ÇÒ ³ëµåÀÇ ÀÚ½Ä ³ëµå°¡ ÇÑ °³ ÀÏ¶§
+	// case2 -> ì‚­ì œí•  ë…¸ë“œì˜ ìì‹ ë…¸ë“œê°€ í•œ ê°œ ì¼ë•Œ
 	else if ((node->left == NULL || node->right == NULL)) {
 		child = (node->left != NULL) ? node->left : node->right;
 		if (node == root) root = child;
@@ -80,21 +80,21 @@ void delete_tree(TNode* parent, TNode* node) {
 		}
 	}
 
-	// case3 -> »èÁ¦ÇÒ ³ëµåÀÇ ÀÚ½Ä ³ëµå°¡ µÎ °³ ÀÏ¶§
+	// case3 -> ì‚­ì œí•  ë…¸ë“œì˜ ìì‹ ë…¸ë“œê°€ ë‘ ê°œ ì¼ë•Œ
 	else {
-		succp = node;											// ÈÄ°èÀÚ ³ëµåÀÇ ºÎ¸ğ³ëµå
-		succ = node->right;										/* ÈÄ°èÀÚ ³ëµå [¿ì¸®´Â ¿À¸¥ÂÊ ÀÚ½ÄÀ¸·Î Å½»öÇÏ±â ¶§¹®¿¡ rightÀÓ ¿ŞÂÊ ÀÚ½ÄÀ¸·Î Å½»öÇÏ°í ½ÍÀ¸¸é left
-																	´ë½Å ¾Æ·¡ while¹® ¼öÁ¤ ÇÊ¿ä]*/
-		while (succ->left != NULL)							// ÈÄ°èÀÚ ³ëµåÀÇ left°¡ ³ÎÀÌ ¾Æ´Ï´Ù-> Å½»öÀÌ ´õ ÇÊ¿ä [¿ì¸®´Â ´Ü¸»³ëµåÀÎ ÈÄ°èÀÚ°¡ ÇÊ¿äÇÑ °Í]
+		succp = node;											// í›„ê³„ì ë…¸ë“œì˜ ë¶€ëª¨ë…¸ë“œ
+		succ = node->right;										/* í›„ê³„ì ë…¸ë“œ [ìš°ë¦¬ëŠ” ì˜¤ë¥¸ìª½ ìì‹ìœ¼ë¡œ íƒìƒ‰í•˜ê¸° ë•Œë¬¸ì— rightì„ ì™¼ìª½ ìì‹ìœ¼ë¡œ íƒìƒ‰í•˜ê³  ì‹¶ìœ¼ë©´ left
+																	ëŒ€ì‹  ì•„ë˜ whileë¬¸ ìˆ˜ì • í•„ìš”]*/
+		while (succ->left != NULL)							// í›„ê³„ì ë…¸ë“œì˜ leftê°€ ë„ì´ ì•„ë‹ˆë‹¤-> íƒìƒ‰ì´ ë” í•„ìš” [ìš°ë¦¬ëŠ” ë‹¨ë§ë…¸ë“œì¸ í›„ê³„ìê°€ í•„ìš”í•œ ê²ƒ]
 		{
-			succp = succ;										// ¾ÆÁ÷ ³¡±îÁö Å½»öÇÑ °ÍÀÌ ¾Æ´Ï¹Ç·Î ºÎ¸ğ³ëµåÀÇ À§Ä¡¸¦ º¯°æ
-			succ = succ->left;									// ÀÚ½Ä ³ëµå´Â Å½»ö
+			succp = succ;										// ì•„ì§ ëê¹Œì§€ íƒìƒ‰í•œ ê²ƒì´ ì•„ë‹ˆë¯€ë¡œ ë¶€ëª¨ë…¸ë“œì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½
+			succ = succ->left;									// ìì‹ ë…¸ë“œëŠ” íƒìƒ‰
 		}
 		if (succp->left == succ) succp->left = succ->right;
 		else succp->right = succ->right;
 		//if (succp->left == succ) succp->left = NULL;
 		//else succp->right = NULL;
-		node->data = succ->data;								//ÈÄ°èÀÚ ³ëµå¸¦ »èÁ¦ÇÒ ³ëµå¿¡ º¹»ç
+		node->data = succ->data;								//í›„ê³„ì ë…¸ë“œë¥¼ ì‚­ì œí•  ë…¸ë“œì— ë³µì‚¬
 		node = succ;
 	}
 	free(node);
@@ -108,10 +108,10 @@ void delete_BST(int key) {
 		parent = node;
 		node = (key < node->data) ? node->left : node->right;
 	}
-	if (node == NULL) printf("\n¿¡·¯: »èÁ¦ÇÒ µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù.\n");
+	if (node == NULL) printf("\nì—ëŸ¬: ì‚­ì œí•  ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.\n");
 	else delete_tree(parent, node);
 }
-// Å¥ Á¤º¸
+// í ì •ë³´
 #define MAX_QUEUE_SIZE 100
 typedef TNode* Element;
 Element data[MAX_QUEUE_SIZE];
@@ -127,13 +127,13 @@ int is_full() { return front == (rear + 1) % MAX_QUEUE_SIZE; }
 int size_queue() { return (rear - front + MAX_QUEUE_SIZE) % MAX_QUEUE_SIZE; }
 void enqueue(Element val) {
 	if (is_full())
-		error("Å¥ Æ÷È­ ¿¡·¯");
+		error("í í¬í™” ì—ëŸ¬");
 	rear = (rear + 1) % MAX_QUEUE_SIZE;
 	data[rear] = val;
 }
 Element dequeue() {
 	if (is_empty_queue())
-		error("Å¥ °ø¹é ¿¡·¯");
+		error("í ê³µë°± ì—ëŸ¬");
 	front = (front + 1) % MAX_QUEUE_SIZE;
 	return data[front];
 }
@@ -145,10 +145,10 @@ int get_count(TNode* n) {
 	if (n == NULL) return 0;
 	return 1 + get_count(n->left) + get_count(n->right);
 }
-int get_leaf_count(TNode* n) { //´Ü¸»³ëµå
+int get_leaf_count(TNode* n) { //ë‹¨ë§ë…¸ë“œ
 	if (n == NULL) return 0;
-	if (n->left == NULL && n->right == NULL) return 1; // ·çÆ® ³ëµå¸¸ Á¸Àç
-	else return get_leaf_count(n->left) + get_leaf_count(n->right); //Àç±ÍÈ£Ãâ
+	if (n->left == NULL && n->right == NULL) return 1; // ë£¨íŠ¸ ë…¸ë“œë§Œ ì¡´ì¬
+	else return get_leaf_count(n->left) + get_leaf_count(n->right); //ì¬ê·€í˜¸ì¶œ
 }
 int get_height(TNode* n) { //tree Hight
 	int hLeft, hRight;
@@ -159,7 +159,7 @@ int get_height(TNode* n) { //tree Hight
 }
 
 
-// Æ®¸® ³ôÀÌ¿¡ ºñ·ÊÇÏ¿© °¡·ÎÃàÀÇ ÃÖ´ë »çÀÌÁî
+// íŠ¸ë¦¬ ë†’ì´ì— ë¹„ë¡€í•˜ì—¬ ê°€ë¡œì¶•ì˜ ìµœëŒ€ ì‚¬ì´ì¦ˆ
 //int sizeX(int nodeHeight) {						
 //	int x = 0;
 //	if (nodeHeight == 1) return 1;
@@ -176,7 +176,7 @@ int get_height(TNode* n) { //tree Hight
 //	return (sizeX(nodeHeght) - 1) / 2;
 //}
 //
-//// Æ®¸®³ôÀÌ ÃÖ´ë ³ëµå °³¼ö
+//// íŠ¸ë¦¬ë†’ì´ ìµœëŒ€ ë…¸ë“œ ê°œìˆ˜
 //int numberNode(int nodeHeight) {
 //	if (nodeHeight == 1) return 1;
 //	else {
@@ -185,13 +185,13 @@ int get_height(TNode* n) { //tree Hight
 //}
 //
 ///*
-//* ¾Æ·¡ ÇÔ¼ö¿¡¼­ÀÇ nodeHeight´Â
-//		a    <- 3Ãş
-//	b        <- 2Ãş
-//c            <- 1Ãş
-//maxNode -> Æ®¸® ÃÖ´ë ³ôÀÌÀÇ ÃÖ´ë ³ëµå°³¼ö
+//* ì•„ë˜ í•¨ìˆ˜ì—ì„œì˜ nodeHeightëŠ”
+//		a    <- 3ì¸µ
+//	b        <- 2ì¸µ
+//c            <- 1ì¸µ
+//maxNode -> íŠ¸ë¦¬ ìµœëŒ€ ë†’ì´ì˜ ìµœëŒ€ ë…¸ë“œê°œìˆ˜
 //*/
-//// ·¹º§º° ÃÖ´ë ³ëµå °³¼ö 
+//// ë ˆë²¨ë³„ ìµœëŒ€ ë…¸ë“œ ê°œìˆ˜ 
 //int levelNumberNode(int maxNode, int nodeHeight) {
 //	int x = maxNode;
 //	for (int i = 1; i < nodeHeight; i++) {
@@ -199,7 +199,7 @@ int get_height(TNode* n) { //tree Hight
 //	}
 //	return x;
 //}
-////ÇØ´ç ·¹º§ÀÇ ³ëµåÀÇ ÃÖ´ë °³¼ö¸¦ ¾Ë¶§ ÇöÀçÃşÀ» ³ªÅ¸³»´Â ÇÔ¼ö
+////í•´ë‹¹ ë ˆë²¨ì˜ ë…¸ë“œì˜ ìµœëŒ€ ê°œìˆ˜ë¥¼ ì•Œë•Œ í˜„ì¬ì¸µì„ ë‚˜íƒ€ë‚´ëŠ” í•¨ìˆ˜
 //int levelNumber(int maxNode) {
 //	int i = 1;
 //	for (int x = maxNode; x != 1; x = x / 2) {
@@ -238,14 +238,14 @@ int plusOffset = 8;
 
 */
 void print2D_tree90(TNode* n, int offset) {
-	if (n == NULL) return;						//Æ®¸®°¡ ºñ¾úÀ¸¸é ÇÔ¼ö Á¾·á
+	if (n == NULL) return;						//íŠ¸ë¦¬ê°€ ë¹„ì—ˆìœ¼ë©´ í•¨ìˆ˜ ì¢…ë£Œ
 
-	offset += plusOffset;						// offset-> ±âº» °ø¹é plusOffset-> Ãß°¡ÀûÀ¸·Î ´Ã¾î³¯ °ø¹é Áï, ¿ŞÂÊ¿¡¼­ºÎÅÍ ¶³¾îÁö´Â °Å¸®
+	offset += plusOffset;						// offset-> ê¸°ë³¸ ê³µë°± plusOffset-> ì¶”ê°€ì ìœ¼ë¡œ ëŠ˜ì–´ë‚  ê³µë°± ì¦‰, ì™¼ìª½ì—ì„œë¶€í„° ë–¨ì–´ì§€ëŠ” ê±°ë¦¬
 	printf("\n");
-	print2D_tree90(n->right, offset);			// ¿À¸¥ÂÊ ÀÚ½ÄºÎÅÍ Ãâ·Â
+	print2D_tree90(n->right, offset);			// ì˜¤ë¥¸ìª½ ìì‹ë¶€í„° ì¶œë ¥
 
 							
-	for (int i = plusOffset; i < offset; i++)	// ·çÆ® ³ëµå·ÎºÎÅÍ ¶³¾îÁüÀ» Ç¥ÇöÇÏ±â À§ÇØ¼­ plusOffsetºÎÅÍ offsetº¸´Ù ÀÛÀ» µ¿¾È ¹İº¹ÇÏ¿© °ø°£È®º¸
+	for (int i = plusOffset; i < offset; i++)	// ë£¨íŠ¸ ë…¸ë“œë¡œë¶€í„° ë–¨ì–´ì§ì„ í‘œí˜„í•˜ê¸° ìœ„í•´ì„œ plusOffsetë¶€í„° offsetë³´ë‹¤ ì‘ì„ ë™ì•ˆ ë°˜ë³µí•˜ì—¬ ê³µê°„í™•ë³´
 	{ 
 		if (i == offset - 1) {
 			printf(">");
@@ -254,15 +254,15 @@ void print2D_tree90(TNode* n, int offset) {
 			printf(" ");
 		}
 	} 
-	printf("%d\n", n->data);					// ÇÔ¼ö ½ÇÇàµÉ¶§ ÀÚ½ÅÀÇ ³ëµå °ª Ãâ·Â
+	printf("%d\n", n->data);					// í•¨ìˆ˜ ì‹¤í–‰ë ë•Œ ìì‹ ì˜ ë…¸ë“œ ê°’ ì¶œë ¥
 
-	print2D_tree90(n->left, offset);					// ¿ŞÂÊ ÀÚ½Äµµ µ¿ÀÏÇÏ°Ô Ãâ·Â
+	print2D_tree90(n->left, offset);					// ì™¼ìª½ ìì‹ë„ ë™ì¼í•˜ê²Œ ì¶œë ¥
 }
-void print2D_UI(TNode* n) {						// À§ ÇÔ¼ö¸¦ °£´ÜÇÏ°Ô ¾²±â À§ÇÑ ÇÔ¼ö
+void print2D_UI(TNode* n) {						// ìœ„ í•¨ìˆ˜ë¥¼ ê°„ë‹¨í•˜ê²Œ ì“°ê¸° ìœ„í•œ í•¨ìˆ˜
 	print2D_tree90(n, 0);
 }
 
-//int offset; // ·çÆ®°¡ Ã³À½ º®À¸·ÎºÎÅÍ ¸Ö¾îÁø °Å¸®
+//int offset; // ë£¨íŠ¸ê°€ ì²˜ìŒ ë²½ìœ¼ë¡œë¶€í„° ë©€ì–´ì§„ ê±°ë¦¬
 //
 //int spaceLeft(int firstOffset, int level) {
 //	if (level == 1) return firstOffset;
@@ -282,13 +282,13 @@ void print2D_UI(TNode* n) {						// À§ ÇÔ¼ö¸¦ °£´ÜÇÏ°Ô ¾²±â À§ÇÑ ÇÔ¼ö
 //}
 //
 
-//int spaceL;			// ¿ŞÂÊ °ø¹éÀ» ³ªÅ¸³»´À º¯¼ö
-//int spaceR;			// ¿À¸¥ÂÊ °ø¹éÀ» ³ªÅ¸³»´Â º¯¼ö
-//TNode* beforeNode;	// ÀÌÀü³ëµåÆÄ¾Ç¿ë ·¹ÆÛ·±½º º¯¼ö
+//int spaceL;			// ì™¼ìª½ ê³µë°±ì„ ë‚˜íƒ€ë‚´ëŠ ë³€ìˆ˜
+//int spaceR;			// ì˜¤ë¥¸ìª½ ê³µë°±ì„ ë‚˜íƒ€ë‚´ëŠ” ë³€ìˆ˜
+//TNode* beforeNode;	// ì´ì „ë…¸ë“œíŒŒì•…ìš© ë ˆí¼ëŸ°ìŠ¤ ë³€ìˆ˜
 
 //void print2D_tree(TNode* n) {
 //	if (n == NULL) return;
-//	int numberNodeByHeight = levelNumberNode_reverse(level);	// °¢ ·¹º§¿¡¼­ °¡Áú ¼ö ÀÖ´Â ÃÖ´ë ³ëµå °³¼ö 
+//	int numberNodeByHeight = levelNumberNode_reverse(level);	// ê° ë ˆë²¨ì—ì„œ ê°€ì§ˆ ìˆ˜ ìˆëŠ” ìµœëŒ€ ë…¸ë“œ ê°œìˆ˜ 
 //	int nullCount = numberNodeByHeight - count;					
 //	//printf(" c = %d", count);
 //	//printf(" s = %d", size_queue());
@@ -297,20 +297,20 @@ void print2D_UI(TNode* n) {						// À§ ÇÔ¼ö¸¦ °£´ÜÇÏ°Ô ¾²±â À§ÇÑ ÇÔ¼ö
 //
 //
 //	if (n == root) {
-//		offset = halfSizeX(get_height(n)); //°Å¸®
+//		offset = halfSizeX(get_height(n)); //ê±°ë¦¬
 //		for (int i = 0; i < offset; i++) printf(" ");
 //		printf("%d", n->data);
 //	}
 //	else if (n->data < beforeNode->data) {
-//		if (beforeNode == root) {												// ÀÌÀü ³ëµå°¡ ·çÆ® ³ëµå¿´´Ù¸é
+//		if (beforeNode == root) {												// ì´ì „ ë…¸ë“œê°€ ë£¨íŠ¸ ë…¸ë“œì˜€ë‹¤ë©´
 //			spaceL = spaceLeft(offset-1, level); 
 //			for (int i = 0; i < spaceL; i++) printf(" ");
 //		}
-//		else if (n->data > root->data) {										// ÀÌÀü µ¥ÀÌÅÍº¸´Ù´Â ÀÛÁö¸¸ ·çÆ® ³ëµåº¸´Ù Å©´Ù¸é
+//		else if (n->data > root->data) {										// ì´ì „ ë°ì´í„°ë³´ë‹¤ëŠ” ì‘ì§€ë§Œ ë£¨íŠ¸ ë…¸ë“œë³´ë‹¤ í¬ë‹¤ë©´
 //			spaceL = spaceLeft(offset, level);
 //			for (int i = 0; i < spaceL; i++) printf(" "); 
 //		}
-//		else {																	// ÀÌÀü ³ëµå°¡ ·çÆ® ³ëµå°¡ ¾Æ´Ï¶ó¸é
+//		else {																	// ì´ì „ ë…¸ë“œê°€ ë£¨íŠ¸ ë…¸ë“œê°€ ì•„ë‹ˆë¼ë©´
 //			spaceL = spaceLeft(spaceL, level); 
 //			for (int i = 0; i < spaceL; i++) printf(" ");
 //		}
@@ -318,22 +318,22 @@ void print2D_UI(TNode* n) {						// À§ ÇÔ¼ö¸¦ °£´ÜÇÏ°Ô ¾²±â À§ÇÑ ÇÔ¼ö
 //		for (int i = 0; i < spaceL; i++) printf(" ");
 //		//printf("l = %d", spaceL);
 //	}
-//	else if (n->data > beforeNode->data) {										// ÇöÁ¦ µ¥ÀÌÅÍ°¡ ÀÌÀü µ¥ÀÌÅÍº¸´Ù ÀÛÀ» ¶§
-//		if (beforeNode == root) {												// ÀÌÀü ³ëµå°¡ ·çÆ® ³ëµåÀÏ¶§
+//	else if (n->data > beforeNode->data) {										// í˜„ì œ ë°ì´í„°ê°€ ì´ì „ ë°ì´í„°ë³´ë‹¤ ì‘ì„ ë•Œ
+//		if (beforeNode == root) {												// ì´ì „ ë…¸ë“œê°€ ë£¨íŠ¸ ë…¸ë“œì¼ë•Œ
 //			spaceR = spaceRight(offset-1, level);
-//			if (spaceL > 0) {													// ÇüÁ¦ ³ëµå°¡ ÀÖÀ» °æ¿ì
+//			if (spaceL > 0) {													// í˜•ì œ ë…¸ë“œê°€ ìˆì„ ê²½ìš°
 //				for (int i = spaceL; i < spaceR; i++) printf(" ");
 //			}
-//			else {																// ÇüÁ¦ ³ëµå°¡ ¾øÀ» °æ¿ì
+//			else {																// í˜•ì œ ë…¸ë“œê°€ ì—†ì„ ê²½ìš°
 //				for (int i = 0; i < spaceR; i++) printf(" ");
 //			}
 //		}
-//		else {																	// ÀÌÀü ³ëµå°¡ ·çÆ® ³ëµå°¡ ¾Æ´Ò¶§
-//			if (count - 1 !=0) {												// ÇüÁ¦ ³ëµå°¡ ÀÖÀ» °æ¿ì[ÀÌÀü ³ëµå´Â ³ªº¸´Ù ÀÛÀ¸¹Ç·Î ÀÌ°ÍÀº °¡Àå ¿À¸¥ÂÊ ³ëµå]
+//		else {																	// ì´ì „ ë…¸ë“œê°€ ë£¨íŠ¸ ë…¸ë“œê°€ ì•„ë‹ë•Œ
+//			if (count - 1 !=0) {												// í˜•ì œ ë…¸ë“œê°€ ìˆì„ ê²½ìš°[ì´ì „ ë…¸ë“œëŠ” ë‚˜ë³´ë‹¤ ì‘ìœ¼ë¯€ë¡œ ì´ê²ƒì€ ê°€ì¥ ì˜¤ë¥¸ìª½ ë…¸ë“œ]
 //				spaceR = spaceRight(spaceR, level)/(count-1)-spaceL;
 //				for (int i = 0; i < spaceR; i++) printf(" ");
 //			}
-//			else {																// ÇüÁ¦ ³ëµå°¡ ¾øÀ» °æ¿ì
+//			else {																// í˜•ì œ ë…¸ë“œê°€ ì—†ì„ ê²½ìš°
 //				spaceR = spaceRight(spaceR, level);
 //				for (int i = 0; i < spaceR; i++) printf(" ");
 //			}
@@ -344,13 +344,13 @@ void print2D_UI(TNode* n) {						// À§ ÇÔ¼ö¸¦ °£´ÜÇÏ°Ô ¾²±â À§ÇÑ ÇÔ¼ö
 //
 //
 //
-//	if (count == numberNodeByHeight|| n==root) {	// ·¹º§º° ³ëµåÀÇ °³¼ö¿Í ÇöÀç count°¡ µ¿ÀÏ ÇÒ ¶§ Áï Æ÷È­ÀÏ¶§
+//	if (count == numberNodeByHeight|| n==root) {	// ë ˆë²¨ë³„ ë…¸ë“œì˜ ê°œìˆ˜ì™€ í˜„ì¬ countê°€ ë™ì¼ í•  ë•Œ ì¦‰ í¬í™”ì¼ë•Œ
 //		printf("\n\n");
 //		level++;
 //		count = 0;
 //		beforeNode = n;
 //	}
-//	else if (count < numberNodeByHeight) {			 //·¹º§º° ³ëµåÀÇ °³¼öº¸´Ù count°¡ ÀÛÀ» ¶§
+//	else if (count < numberNodeByHeight) {			 //ë ˆë²¨ë³„ ë…¸ë“œì˜ ê°œìˆ˜ë³´ë‹¤ countê°€ ì‘ì„ ë•Œ
 //		if (size_queue()==0 || count + size_queue() +1 == numberNodeByHeight) {
 //			printf("\n\n");
 //			level++;
@@ -396,21 +396,21 @@ int level_order_print(TNode* root) {
 		}
 	}
 }
-void preorder_VLR(TNode* n) { //ÀüÀ§ ¼øÈ¸ preorder traversal
+void preorder_VLR(TNode* n) { //ì „ìœ„ ìˆœíšŒ preorder traversal
 	if (n != NULL) {
 		printf("[%d] ", n->data);
 		preorder_VLR(n->left);
 		preorder_VLR(n->right);
 	}
 }
-void inorder_LVR(TNode* n) { // ÁßÀ§ ¼øÈ¸ inorder traversal
+void inorder_LVR(TNode* n) { // ì¤‘ìœ„ ìˆœíšŒ inorder traversal
 	if (n != NULL) {
 		inorder_LVR(n->left);
 		printf("[%d] ", n->data);
 		inorder_LVR(n->right);
 	}
 }
-void postorder_LRV(TNode* n) { // ÈÄÀ§ ¼øÈ¸ postorder traversal
+void postorder_LRV(TNode* n) { // í›„ìœ„ ìˆœíšŒ postorder traversal
 	if (n != NULL) {
 		postorder_LRV(n->left);
 		postorder_LRV(n->right);
@@ -421,33 +421,33 @@ void main() {
 	init_tree();
 	char ch = 'i';
 	int nodeData;
-	printf("\n   Æ®¸®¸Ş´º<m>\n \n i - ³ëµåÃß°¡\n d - Æ®¸®Ãâ·Â\n r - ³ëµå»èÁ¦\n t - Æ®¸®±×¸®±â\n q - ³ª°¡±â\n\n");
+	printf("\n   íŠ¸ë¦¬ë©”ë‰´<m>\n \n i - ë…¸ë“œì¶”ê°€\n d - íŠ¸ë¦¬ì¶œë ¥\n r - ë…¸ë“œì‚­ì œ\n t - íŠ¸ë¦¬ê·¸ë¦¬ê¸°\n q - ë‚˜ê°€ê¸°\n\n");
 	while (ch != 'q')
 	{
-		printf("\nÅ°¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä : "); scanf(" %c", &ch);
+		printf("\ní‚¤ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš” : "); scanf(" %c", &ch);
 
 		switch (ch)
 		{
 		case 'i':
-			// °è¼ÓÇØ¼­ i¸¦ ´©¸£Áö ¾Ê¾Æµµ ³ëµå¸¦ Ãß°¡ÇÒ ¼ö ÀÖµµ·Ï ¹İº¹¹® ¼³Á¤
+			// ê³„ì†í•´ì„œ ië¥¼ ëˆ„ë¥´ì§€ ì•Šì•„ë„ ë…¸ë“œë¥¼ ì¶”ê°€í•  ìˆ˜ ìˆë„ë¡ ë°˜ë³µë¬¸ ì„¤ì •
 			while (1) {
-				printf("\n¿£ÅÍ¸¦ ´©¸£¸é »ğÀÔµË´Ï´Ù. (q¸¦ ´©¸£¸é Á¾·á): ");
+				printf("\nì—”í„°ë¥¼ ëˆ„ë¥´ë©´ ì‚½ì…ë©ë‹ˆë‹¤. (që¥¼ ëˆ„ë¥´ë©´ ì¢…ë£Œ): ");
 				int input_result = scanf("%d", &nodeData);
 
-				if (input_result == 1) {								// ÇÔ¼öÀÇ ¹İÈ¯°ªÀÌ 1 Áï, ¼º°øÀûÀ¸·Î ¼ıÀÚ¸¦ ÀÔ·Â¹Ş¾ÒÀ» °æ¿ì ³ëµå¸¦ Ãß°¡
+				if (input_result == 1) {								// í•¨ìˆ˜ì˜ ë°˜í™˜ê°’ì´ 1 ì¦‰, ì„±ê³µì ìœ¼ë¡œ ìˆ«ìë¥¼ ì…ë ¥ë°›ì•˜ì„ ê²½ìš° ë…¸ë“œë¥¼ ì¶”ê°€
 					insert_BST(nodeData);
 				}
-				else if (input_result == EOF) {							// ¿À·ù ¹ß»ı ½Ã ÇÁ·Î±×·¥À» Á¾·á
-					printf("ÀÔ·Â ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.\n");
+				else if (input_result == EOF) {							// ì˜¤ë¥˜ ë°œìƒ ì‹œ í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œ
+					printf("ì…ë ¥ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.\n");
 					exit(1);
 				}
-				else {													// ¼ıÀÚ°¡ ÀÔ·ÂµÇÁö ¾Ê¾ÒÀ» °æ¿ì 
-					char next = getchar();								// »ç¿ëÀÚ ÀÔ·Â ¹öÆÛ·ÎºÎÅÍ ÇÏ³ªÀÇ ¹®ÀÚ¸¦ ¹Ş¾Æ¿È
-					if (next == 'q') {									// ±× °ªÀÌ 'q'ÀÏ °æ¿ì Á¾·á
-						break; // »ğÀÔ ¸ğµå Á¾·á
+				else {													// ìˆ«ìê°€ ì…ë ¥ë˜ì§€ ì•Šì•˜ì„ ê²½ìš° 
+					char next = getchar();								// ì‚¬ìš©ì ì…ë ¥ ë²„í¼ë¡œë¶€í„° í•˜ë‚˜ì˜ ë¬¸ìë¥¼ ë°›ì•„ì˜´
+					if (next == 'q') {									// ê·¸ ê°’ì´ 'q'ì¼ ê²½ìš° ì¢…ë£Œ
+						break; // ì‚½ì… ëª¨ë“œ ì¢…ë£Œ
 					}
 					else {
-						printf("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ¼ıÀÚ¸¦ ÀÔ·ÂÇÏ°Å³ª 'q'¸¦ ´­·¯ Á¾·áÇÏ¼¼¿ä.\n");
+						printf("ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. ìˆ«ìë¥¼ ì…ë ¥í•˜ê±°ë‚˜ 'q'ë¥¼ ëˆŒëŸ¬ ì¢…ë£Œí•˜ì„¸ìš”.\n");
 					}
 				}
 			}
@@ -455,20 +455,20 @@ void main() {
 		case 'd':
 		{
 			if (is_empty_tree()) {
-				printf("\nÆ®¸®°¡ ºñ¾ú½À´Ï´Ù.\n");
+				printf("\níŠ¸ë¦¬ê°€ ë¹„ì—ˆìŠµë‹ˆë‹¤.\n");
 			}
 			else {
 				printf("\n");
-				printf("ÀüÀ§ ¼øÈ¸ ¹æ½Ä(VLR) : ");  preorder_VLR(root);		printf("\n");
-				printf("ÁßÀ§ ¼øÈ¸ ¹æ½Ä(LVR) : ");  inorder_LVR(root);			printf("\n");
-				printf("ÈÄÀ§ ¼øÈ¸ ¹æ½Ä(LRV) : ");  postorder_LRV(root);		printf("\n");
-				printf("·¹º§ ¼øÈ¸ ¹æ½Ä	    : ");  level_order_print(root);	printf("\n");
+				printf("ì „ìœ„ ìˆœíšŒ ë°©ì‹(VLR) : ");  preorder_VLR(root);		printf("\n");
+				printf("ì¤‘ìœ„ ìˆœíšŒ ë°©ì‹(LVR) : ");  inorder_LVR(root);			printf("\n");
+				printf("í›„ìœ„ ìˆœíšŒ ë°©ì‹(LRV) : ");  postorder_LRV(root);		printf("\n");
+				printf("ë ˆë²¨ ìˆœíšŒ ë°©ì‹	    : ");  level_order_print(root);	printf("\n");
 			}
 		}
 		break;
 		case 'r':
 		{
-			printf("\n »èÁ¦ÇÒ °ªÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä: ");
+			printf("\n ì‚­ì œí•  ê°’ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”: ");
 			scanf("%d", &nodeData);
 			delete_BST(nodeData);
 		}
@@ -476,7 +476,7 @@ void main() {
 		case 't':
 		{
 			if (is_empty_tree()) {
-				printf("\nÆ®¸®°¡ ºñ¾ú½À´Ï´Ù.\n");
+				printf("\níŠ¸ë¦¬ê°€ ë¹„ì—ˆìŠµë‹ˆë‹¤.\n");
 			}
 			else {
 				print2D_UI(root);
@@ -486,7 +486,7 @@ void main() {
 		case 'w':
 		{
 			if (is_empty_tree()) {
-				printf("\nÆ®¸®°¡ ºñ¾ú½À´Ï´Ù.\n");
+				printf("\níŠ¸ë¦¬ê°€ ë¹„ì—ˆìŠµë‹ˆë‹¤.\n");
 			}
 			else {
 				printf("\n");
@@ -496,17 +496,17 @@ void main() {
 		break;
 		case 'm':
 		{
-			printf("\nÆ®¸®¸Ş´º - m\n \n Æ®¸®Ãß°¡ - i \n Æ®¸®Ãâ·Â - d \n »èÁ¦ - r \n Æ®¸®±×¸®±â - t \n ³ª°¡±â - q \n\n");
+			printf("\níŠ¸ë¦¬ë©”ë‰´ - m\n \n íŠ¸ë¦¬ì¶”ê°€ - i \n íŠ¸ë¦¬ì¶œë ¥ - d \n ì‚­ì œ - r \n íŠ¸ë¦¬ê·¸ë¦¬ê¸° - t \n ë‚˜ê°€ê¸° - q \n\n");
 		}
 		break;
 		case 'q':
 		{
-			printf("\nÁ¾·áÇÏ¿´½À´Ï´Ù.\n");
+			printf("\nì¢…ë£Œí•˜ì˜€ìŠµë‹ˆë‹¤.\n");
 			exit(0);
 		}
 		break;
 		default:
-			printf("Ä¿¸àµå¸¦ Àß¸øÀÔ·ÂÇÏ¼Ì½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+			printf("ì»¤ë©˜ë“œë¥¼ ì˜ëª»ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
 		}
 	}
 }
