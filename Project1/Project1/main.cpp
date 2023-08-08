@@ -431,7 +431,12 @@ void main() {
 		case 'i':
 			// 계속해서 i를 누르지 않아도 노드를 추가할 수 있도록 반복문 설정
 			while (1) {
-				printf("\n엔터를 누르면 삽입됩니다. (q를 누르면 종료): ");
+				if (is_empty_tree()) {										// 트리가 비었을 경우
+					printf("\nroot를 입력해주세요. (q를 누르면 종료): ");
+				}
+				else {
+					printf("\n노드를 입력해주세요. (q를 누르면 종료): ");
+				}
 				int input_result = scanf("%d", &nodeData);
 
 				if (input_result == 1) {								// 함수의 반환값이 1 즉, 성공적으로 숫자를 입력받았을 경우 노드를 추가
@@ -469,6 +474,7 @@ void main() {
 		case 'r':
 			// 계속해서 r를 누르지 않아도 노드를 삭제할 수 있도록 반복문 설정
 			while (1) {
+				if(root == NULL){}
 				printf("\n삭제할 값을 입력해 주세요. (q를 누르면 종료): ");
 				int delete_result = scanf("%d", &nodeData);
 
